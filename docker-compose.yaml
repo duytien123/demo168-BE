@@ -1,0 +1,42 @@
+services:
+  mysqldb:
+    image: mysql:8.0
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: root 
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        # MYSQL_USER: ${MYSQL_USER} 
+        # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        TZ: Asia/Ho_Chi_Minh
+    volumes:
+        - ./docker/mysql/data:/var/lib/mysql
+    ports:
+      - "${MYSQL_PORT}:3306"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --skip-character-set-client-handshake
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  vn128:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./:/app
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # MYSQL_USER: ${MYSQL_USER}
+      # MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Ho_Chi_Minh
+    depends_on:
+      mysqldb:
+        condition: service_healthy
