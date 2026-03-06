@@ -22,3 +22,4 @@ python-multipart==0.0.19
 
 starlette-context==0.3.6
 cachetools==5.3.3
+requests==2.31.0

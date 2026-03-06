@@ -1,0 +1,11 @@
+docker/mysql/data
+**/*.sock
+**/*.pid
+__pycache__
+*.pyc
+.git
+.gitignore
+.env
+.venv
+venv
+node_modules
