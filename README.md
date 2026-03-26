@@ -109,3 +109,44 @@ fastapi dev main.py
 ```
 docker-compose up
 ```
+
+## 4. OCR POC local DeepSeek + Qwen
+
+Endpoint test riêng, không ghi DB:
+
+```
+POST /ocr/poc/local-qwen/
+```
+
+Input:
+- `multipart/form-data`
+- field `file`
+- hỗ trợ ảnh và PDF
+
+Luồng xử lý:
+- OCR local bằng Ollama + `deepseek-ocr:3b` để lấy markdown
+- gửi markdown sang Qwen để sửa lỗi chính tả có kiểm soát
+- gửi markdown đã sửa sang Qwen lần nữa để extract JSON `fixed/dynamic`
+- nếu upload là PDF thì trả file export dạng PDF text
+- nếu upload là ảnh thì trả file export dạng `.doc`
+
+Env cần cấu hình:
+
+```
+OLLAMA_HOST="http://127.0.0.1:11434"
+OLLAMA_MODEL="deepseek-ocr:3b"
+QWEN_API_BASE_URL="https://<your-host>/api/"
+QWEN_API_ENDPOINT="/generate"
+QWEN_PROOFREAD_MODEL="qwen3-vl:4b"
+QWEN_EXTRACT_MODEL="qwen3-vl:4b"
+```
+
+Ví dụ gọi nhanh:
+
+```bash
+curl -X POST http://localhost:8000/ocr/poc/local-qwen/ \
+  -F "file=@/path/to/document.pdf"
+```
+
+Tài liệu response Qwen:
+- [docs/qwen_response.md](/Users/letien/Documents/Tien/demo168-BE/docs/qwen_response.md)

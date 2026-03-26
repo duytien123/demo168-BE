@@ -14,6 +14,15 @@ class Settings(BaseSettings):
     request_timeout: int = 300
     api_host: str = Field(default="http://localhost", description="API outbound", env="API_HOST")
     api_port: int = Field(default=9000, env="API_PORT")
+    qwen_api_base_url: str = Field(
+        default="https://b811-2001-ee0-4dbe-dae0-2049-4dff-fe02-1838.ngrok-free.app/api/",
+        env="QWEN_API_BASE_URL",
+    )
+    qwen_api_endpoint: str = Field(default="/generate", env="QWEN_API_ENDPOINT")
+    qwen_proofread_model: str = Field(default="qwen3-vl:4b", env="QWEN_PROOFREAD_MODEL")
+    qwen_extract_model: str = Field(default="qwen3-vl:4b", env="QWEN_EXTRACT_MODEL")
+    ollama_host: str = Field(default="http://127.0.0.1:11434", env="OLLAMA_HOST")
+    ollama_model: str = Field(default="deepseek-ocr:3b", env="OLLAMA_MODEL")
     env: str = Field(default="local", description="environment name")
     allow_origins: Union[str, List] = Field(default=["*"])
     allow_methods: Union[str, List] = Field(default=["*"])

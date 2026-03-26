@@ -1,9 +1,6 @@
 from app.externals.api_client import APIClient
 
-from app.config import Settings
-
-
-settings = Settings()
+from app.config import get_settings
 
 
 def call(
@@ -15,14 +12,14 @@ def call(
     headers={"Content-Type": "application/json"}
 ):
     try:
+        settings = get_settings()
         ocr_api_client = APIClient(
-            base_url="https://b811-2001-ee0-4dbe-dae0-2049-4dff-fe02-1838.ngrok-free.app/api/",
-            # base_url=f"{settings.sokucom_api_host}:{settings.sokucom_api_port}",
+            base_url=settings.qwen_api_base_url,
             timeout=settings.request_timeout
         )
         response = ocr_api_client.call(
             method=method,
-            endpoint="/generate",
+            endpoint=settings.qwen_api_endpoint,
             params=params,
             data=data,
             json=json,

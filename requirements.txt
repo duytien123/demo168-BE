@@ -23,3 +23,7 @@ python-multipart==0.0.19
 starlette-context==0.3.6
 cachetools==5.3.3
 requests==2.31.0
+Pillow==11.1.0
+PyMuPDF==1.25.3
+pillow-heif==0.21.0
+reportlab==4.4.1

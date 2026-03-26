@@ -48,7 +48,7 @@ async def detect_image_text(
         data = response["data"].json()
         data_dict = to_dict(data)
     else:
-        raise HTTPException(status_code=400, detail="Không thể trích xuất dữ liệu từ ảnh văn bản hành chính, vui lòng thửu lại!")
+        raise HTTPException(status_code=response["status"], detail="Không thể trích xuất dữ liệu từ ảnh văn bản hành chính, vui lòng thửu lại!")
 
     thinking = to_dict(data_dict.get("thinking"))
     if not thinking or not thinking.get("fixed"):

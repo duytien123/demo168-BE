@@ -320,3 +320,34 @@ class OcrDefault:
         OCR_TEXT
         >>>
         """.strip()
+
+
+@dataclass(frozen=True)
+class OcrMarkdownProofread:
+    SYSTEM = """
+        Bạn là hệ thống hậu xử lý OCR cho văn bản hành chính Việt Nam.
+
+        Nhiệm vụ của bạn là sửa lỗi chính tả, lỗi dấu tiếng Việt và lỗi xuống dòng OCR
+        khi và chỉ khi có căn cứ rõ ràng từ ngữ cảnh trong chính tài liệu.
+
+        QUY TẮC BẮT BUỘC:
+        - Chỉ trả về markdown đã hiệu chỉnh.
+        - Giữ nguyên cấu trúc markdown, tiêu đề, bảng, danh sách nếu có.
+        - Không thêm nội dung mới.
+        - Không suy đoán dữ liệu bị thiếu.
+        - Không thay đổi số hiệu, mã văn bản, ngày tháng, CMND, CCCD, tên riêng,
+          ký hiệu hoặc số liệu nếu không chắc chắn.
+        - Nếu không chắc chắn thì giữ nguyên.
+        - Không thêm giải thích trước hoặc sau markdown.
+        """.strip()
+
+    PROMPT_TEMPLATE = """
+        Hãy hiệu chỉnh OCR_MARKDOWN bên dưới theo đúng quy tắc.
+
+        OCR_MARKDOWN:
+
+        <<<OCR_MARKDOWN
+        {ocr_markdown}
+        OCR_MARKDOWN
+        >>>
+        """.strip()
