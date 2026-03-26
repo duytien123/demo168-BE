@@ -1,0 +1,38 @@
+.env
+.env.*
+!.env.example
+!env.example
+
+.DS_Store
+
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+.venv/
+venv/
+env/
+
+uploads/
+docker/mysql/data/
+
+*.log
+*.pid
+*.sock
+
+app copy/
+docker copy/
+* copy.ini
+* copy.yaml
+* copy.yml
+* copy.env
+
+.vscode/
+.idea/
+*.swp
+*.swo
