@@ -125,10 +125,8 @@ Input:
 
 Luồng xử lý:
 - OCR local bằng Ollama + `deepseek-ocr:3b` để lấy markdown
-- gửi markdown sang Qwen để sửa lỗi chính tả có kiểm soát
-- gửi markdown đã sửa sang Qwen lần nữa để extract JSON `fixed/dynamic`
-- nếu upload là PDF thì trả file export dạng PDF text
-- nếu upload là ảnh thì trả file export dạng `.doc`
+- response hiện chỉ dùng kết quả từ local DeepSeek OCR
+- luôn trả file export dạng `.doc`
 
 Env cần cấu hình:
 
